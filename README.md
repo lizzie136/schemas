@@ -78,3 +78,14 @@ project.validate()
   .then(console.log)
   .catch(console.error);
 ```
+
+## Schemas
+
+* [`CampusSchema`](./schemas/CampusSchema.js)
+* [`CohortSchema`](./schemas/CohortSchema.js)
+* [`ProjectSchema`](./schemas/ProjectSchema.js)
+* [`ProjectFeedbackSchema`](./schemas/ProjectFeedbackSchema.js)
+* [`ReviewerSurveySchema`](./schemas/ReviewerSurveySchema.js)
+* [`TopicSchema`](./schemas/TopicSchema.js)
+* `TopicProgressSchema` (TBD)
+* `UserProfileSchema` (TBD)
