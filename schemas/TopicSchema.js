@@ -21,17 +21,17 @@ module.exports = (conn) => {
   });
 
 
-  PartSchema.pre('validate', function (next) {
-    if (['exercise', 'quiz'].indexOf(this.type) === -1 && !this.body) {
-      return next(new Error(`Body is required for part type ${this.type}`));
-    }
-    return next();
-  });
+  // PartSchema.pre('validate', function (next) {
+  //   if (['exercise', 'quiz'].indexOf(this.type) === -1 && !this.body) {
+  //     return next(new Error(`Body is required for part type ${this.type}`));
+  //   }
+  //   return next();
+  // });
 
 
   const UnitSchema = new conn.Schema({
     title: { type: String, required: true },
-    bonus: { type: Boolean, required: true }, // ???
+    bonus: { type: Boolean, required: true, default: false }, // ???
     description: { type: String }, // Should this be required???
     parts: { type: Map, of: PartSchema, required: true },
     order: { type: Number, required: true },
@@ -87,6 +87,46 @@ module.exports = (conn) => {
       unitCount: { type: Number, required: true },
       partCount: { type: Number, required: true },
     },
+  });
+
+  TopicSchema.pre('validate', function (next) {
+    const syllabus = this.syllabus ? this.syllabus.toJSON() : {};
+    const errors = Object.keys(syllabus || {}).reduce(
+      (memo, unitKey) => {
+        const parts = syllabus[unitKey].parts.toJSON();
+        return Object.keys(parts || {}).reduce(
+          (prev, partKey) => {
+            if (['exercise', 'quiz'].indexOf(parts[partKey].type) === -1 && !parts[partKey].body) {
+              return {
+                ...prev,
+                [`syllabus.${unitKey}.parts.${partKey}`]: `Body is required for part type ${parts[partKey].type}`,
+              };
+            }
+            return prev;
+          },
+          memo,
+        );
+      },
+      {},
+    );
+
+    const errorKeys = Object.keys(errors);
+
+    if (errorKeys.length) {
+      return next(
+        Object.assign(
+          new Error(
+            `Validation failed: ${errorKeys.reduce(
+              (memo, key) => `${memo ? `${memo}, ` : ''}Path \`${key}\`: ${errors[key]}`,
+              '',
+            )}`,
+          ),
+          { errors },
+        ),
+      );
+    }
+
+    return next();
   });
 
   return TopicSchema;

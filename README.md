@@ -13,7 +13,7 @@
 import mongoose from 'mongoose/browser';
 import schemas from 'schemas';
 
-const { validate } = schemas(mongoose);
+const { validate, CampusSchema } = schemas(mongoose);
 
 validate('Project', {
   slug: 'cipher',
@@ -27,6 +27,10 @@ validate('Project', {
 
   // ...
 });
+
+
+const doc = new mongoose.Document({}, CampusSchema);
+console.log(doc.validateSync());
 ```
 
 ### Node.js

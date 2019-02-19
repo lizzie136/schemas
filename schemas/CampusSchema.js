@@ -18,5 +18,5 @@ module.exports = (conn) => {
     // generations: { type: Number, required: true, default: 0 }, // ????
   });
 
- return CampusSchema;
+  return CampusSchema;
 };

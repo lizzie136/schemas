@@ -15,7 +15,11 @@ module.exports = (conn) => {
 
 
   const ReviewerSurveySchema = new conn.Schema({
-    questions: [ReviewQuestionSchema],
+    questions: {
+      type: [ReviewQuestionSchema],
+      default: undefined,
+      required: true,
+    },
   });
 
   return ReviewerSurveySchema;

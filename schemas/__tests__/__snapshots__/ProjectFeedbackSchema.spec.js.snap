@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProjectFeedbackSchema should fail validation when fields missing 1`] = `
+Object {
+  "cohort": [ValidatorError: Path \`cohort\` is required.],
+  "createdBy": [ValidatorError: Path \`createdBy\` is required.],
+  "project": [ValidatorError: Path \`project\` is required.],
+  "reviewerSurvey": [ValidatorError: Path \`reviewerSurvey\` is required.],
+  "rubric": [ValidatorError: Path \`rubric\` is required.],
+  "rubricResults": [ValidatorError: Path \`rubricResults\` is required.],
+  "uid": [ValidatorError: Path \`uid\` is required.],
+}
+`;
