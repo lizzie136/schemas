@@ -1,6 +1,3 @@
-// TODO: Must validate that `version`, `parserVersion` and `rubric` are semver
-// compatible version strings.
-
 const {
   slug,
   locale,
@@ -11,7 +8,7 @@ const {
 
 module.exports = (conn) => {
   const ProjectSchema = new conn.Schema({
-    slug,
+    slug: { ...slug, unique: false },
     repo: { type: String, required: true },
     path: { type: String, required: true },
     version: semverVersion,
@@ -28,6 +25,8 @@ module.exports = (conn) => {
     },
     skills: { type: Map, of: Number }, // ???
   });
+
+  ProjectSchema.index({ slug: 1, version: 1 }, { unique: true });
 
   return ProjectSchema;
 };
