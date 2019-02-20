@@ -1,7 +1,14 @@
+const { slug } = require('./common');
+
+
 module.exports = (conn) => {
   const ReviewQuestionSchema = new conn.Schema({
-    slug: { type: String, required: true },
-    type: { type: String, enum: ['open', 'multiple-choice'], require: true },
+    slug,
+    type: {
+      type: String,
+      enum: ['open', 'multiple-choice'],
+      require: true,
+    },
     options: { type: Number },
   });
 

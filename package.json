@@ -7,6 +7,9 @@
     "pretest": "eslint .",
     "test": "jest --verbose --coverage"
   },
+  "dependencies": {
+    "semver": "^5.6.0"
+  },
   "devDependencies": {
     "eslint": "^5.14.1",
     "eslint-config-airbnb-base": "^13.1.0",

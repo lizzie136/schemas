@@ -79,6 +79,16 @@ project.validate()
   .catch(console.error);
 ```
 
+## Common types
+
+* `slug`
+* `locale`
+* `program`
+* `track`
+* `semverVersion`
+
+[View source](./schemas/common.js).
+
 ## Schemas
 
 * [`CampusSchema`](./schemas/CampusSchema.js)

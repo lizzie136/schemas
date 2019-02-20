@@ -22,9 +22,17 @@ module.exports = (conn) => {
     createdBy: { type: String, required: true }, // Firebase UID
     createdAt: { type: Date, required: true, default: Date.now },
     // `rubric` hace referencia a la versión (major) de la rúbrica
-    rubric: { type: String, required: true, enum: ['1', '2'] },
+    rubric: {
+      type: String,
+      required: true,
+      enum: ['1', '2'],
+    },
     // `rubricResults` debería ser requerido???
-    rubricResults: { type: Map, of: Number, required: true },
+    rubricResults: {
+      type: Map,
+      of: Number,
+      required: true,
+    },
     // `reviewerSurvey` es el id de un objeto de tipo ReviewerSurvey
     reviewerSurvey: {
       type: conn.Schema.Types.ObjectId,

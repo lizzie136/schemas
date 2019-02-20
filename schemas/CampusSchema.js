@@ -1,17 +1,11 @@
+const { slug, locale } = require('./common');
+
+
 module.exports = (conn) => {
   const CampusSchema = new conn.Schema({
-    slug: {
-      type: String,
-      lowercase: true,
-      trim: true,
-      minlength: 3,
-      maxlength: 4,
-      required: true,
-      index: true,
-      unique: true,
-    },
+    slug: { ...slug, maxlength: 4 },
     name: { type: String, required: true },
-    locale: { type: String, required: true },
+    locale,
     timezone: { type: String, required: true },
     active: { type: Boolean, require: true, default: true },
     // Deberíamos llevar la cuenta del número de generaciones de cada campus acá?

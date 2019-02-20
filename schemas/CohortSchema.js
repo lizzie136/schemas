@@ -1,34 +1,17 @@
+const { slug, program, track } = require('./common');
+
+
 module.exports = (conn) => {
   const CohortSchema = new conn.Schema({
     // Previous id in firestore (deprecated/legacy)
-    slug: { type: String },
+    slug: { ...slug, required: false },
     campus: {
       type: conn.Schema.Types.ObjectId,
       ref: 'Campus',
       required: true,
     },
-    program: {
-      type: String,
-      required: true,
-      enum: [
-        'pre', // Admission
-        'bc', // Bootcamp
-        'jp', // Job Placement
-        'l4b', // Laboratoria for Business (aka corporate training)
-        'ec', // Educación Continua (deprecated!!!)
-      ],
-    },
-    track: {
-      type: String,
-      required: true,
-      enum: [
-        'core', // Common Core (Bootcamp)
-        'js', // JavaScript Track (Bootcamp)
-        'ux', // UX Track (Bootcamp)
-        'mobile', // Mobile Track (Bootcamp) - NOT IN USE
-        'business', // Corporate Training
-      ],
-    },
+    program,
+    track,
     name: {
       type: String,
       // required: true,

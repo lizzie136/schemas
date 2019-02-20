@@ -1,3 +1,11 @@
+const {
+  slug,
+  locale,
+  track,
+  semverVersion,
+} = require('./common');
+
+
 module.exports = (conn) => {
   const PartSchema = new conn.Schema({
     title: { type: String, required: true },
@@ -45,27 +53,13 @@ module.exports = (conn) => {
 
 
   const TopicSchema = new conn.Schema({
-    slug: { type: String, required: true },
+    slug,
     repo: { type: String, required: true },
     path: { type: String, required: true },
-    version: { type: String, required: true },
-    parserVersion: { type: String, required: true },
-    track: {
-      type: String,
-      required: true,
-      enum: [
-        'core', // Common Core (Bootcamp)
-        'js', // JavaScript Track (Bootcamp)
-        'ux', // UX Track (Bootcamp)
-        'mobile', // Mobile Track (Bootcamp) - NOT IN USE
-        'business', // Corporate Training
-      ],
-    },
-    locale: {
-      type: String,
-      enum: ['es-ES', 'pt-BR'],
-      required: true,
-    },
+    version: semverVersion,
+    parserVersion: semverVersion,
+    track,
+    locale,
     createdAt: { type: Date, default: Date.now },
     title: { type: String, required: true },
     description: { type: String },
