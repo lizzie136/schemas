@@ -22,6 +22,7 @@ Object {
 exports[`TopicSchema should fail validation when missing part body 1`] = `
 Object {
   "syllabus.01-intro.parts.00-opening": "Body is required for part type read",
+  "syllabus.01-intro.parts.03-foo": "Body is required for part type read",
 }
 `;
 

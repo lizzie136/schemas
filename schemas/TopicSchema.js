@@ -12,7 +12,14 @@ module.exports = (conn) => {
     type: {
       type: String,
       required: true,
-      enum: ['read', 'seminar', 'workshop', 'quiz', 'practice', 'other'],
+      enum: [
+        'read',
+        'seminar',
+        'workshop',
+        'quiz',
+        'practice',
+        'other',
+      ],
     },
     format: {
       type: String,
@@ -20,7 +27,7 @@ module.exports = (conn) => {
       enum: ['guided', 'self-paced'],
     },
     duration: { type: Number, required: true },
-    // `body` is required when `type` is not exercise or quiz
+    // `body` is required when `type` is not practice or quiz
     body: {
       type: String,
       // required: true,
@@ -30,7 +37,7 @@ module.exports = (conn) => {
 
 
   // PartSchema.pre('validate', function (next) {
-  //   if (['exercise', 'quiz'].indexOf(this.type) === -1 && !this.body) {
+  //   if (['practice', 'quiz'].indexOf(this.type) === -1 && !this.body) {
   //     return next(new Error(`Body is required for part type ${this.type}`));
   //   }
   //   return next();
@@ -84,13 +91,21 @@ module.exports = (conn) => {
   });
 
   TopicSchema.pre('validate', function (next) {
-    const syllabus = this.syllabus ? this.syllabus.toJSON() : {};
-    const errors = Object.keys(syllabus || {}).reduce(
+    const syllabus = (
+      this.syllabus
+        ? this.syllabus.toJSON()
+        : {}
+    );
+    const errors = Object.keys(syllabus).reduce(
       (memo, unitKey) => {
-        const parts = syllabus[unitKey].parts.toJSON();
-        return Object.keys(parts || {}).reduce(
+        const parts = (
+          syllabus[unitKey].parts
+            ? syllabus[unitKey].parts.toJSON()
+            : {}
+        );
+        return Object.keys(parts).reduce(
           (prev, partKey) => {
-            if (['exercise', 'quiz'].indexOf(parts[partKey].type) === -1 && !parts[partKey].body) {
+            if (['practice', 'quiz'].indexOf(parts[partKey].type) === -1 && !parts[partKey].body) {
               return {
                 ...prev,
                 [`syllabus.${unitKey}.parts.${partKey}`]: `Body is required for part type ${parts[partKey].type}`,
