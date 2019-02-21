@@ -36,21 +36,7 @@ Or add it in your `package.json` and then `npm install`:
 import mongoose from 'mongoose/browser';
 import schemas from 'schemas';
 
-const { validate, CampusSchema } = schemas(mongoose);
-
-validate('Project', {
-  slug: 'cipher',
-  repo: 'Laboratoria/curricula-js',
-  path: 'projects/01-cipher',
-  // ...
-})
-  .then(() => {
-    console.log('All good!');
-  })
-  .catch((err) => {
-    // validation failed ...
-  });
-
+const { CampusSchema } = schemas(mongoose);
 
 const doc = new mongoose.Document({}, CampusSchema);
 
