@@ -57,4 +57,20 @@ describe('CohortSchema', () => {
 
     return doc.validate();
   });
+
+  it.only('should ...', () => {
+    const campus = new mongoose.Document({}, CampusSchema);
+    const doc = new mongoose.Document({
+      campus: campus._id,
+      program: 'bc',
+      track: 'js',
+      name: 'OMG',
+      generation: 1,
+      start: new Date(),
+      end: new Date(),
+      publicAdmission: false,
+      rubric: '2',
+    }, CohortSchema);
+    console.log(doc);
+  });
 });

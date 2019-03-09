@@ -28,9 +28,21 @@ module.exports = (conn) => {
       default: '2',
       enum: ['1', '2'],
     },
-    // cohortCourses???
-    // cohortProjects???
-    // usersCount: { type: Number, required: true }, // ????
+    // `cohortUsers` should be a separate collection ad it can grow into the
+    // thousands in admission cohorts...
+    // users: {
+    //   type: Map,
+    //   of: { role: { type: String } },
+    // },
+    topics: [{
+      type: conn.Schema.Types.ObjectId,
+      ref: 'Topic',
+    }],
+    projects: [{
+      type: conn.Schema.Types.ObjectId,
+      ref: 'Project',
+    }],
+    // usersCount????
   });
 
 
