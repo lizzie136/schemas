@@ -1,5 +1,5 @@
 const mongoose = require('mongoose/browser');
-const TopicSchema = require('../TopicSchema')(mongoose);
+const { TopicSchema } = require('../../')(mongoose);
 const babelTopicJson = require('./fixtures/topics/babel');
 
 describe('TopicSchema', () => {

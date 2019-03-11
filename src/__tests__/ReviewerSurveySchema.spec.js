@@ -1,5 +1,5 @@
 const mongoose = require('mongoose/browser');
-const ReviewerSurveySchema = require('../ReviewerSurveySchema')(mongoose);
+const { ReviewerSurveySchema } = require('../../')(mongoose);
 
 describe('ReviewerSurveySchema', () => {
   it('should fail validation when fields missing', () => {
