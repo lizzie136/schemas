@@ -1,6 +1,5 @@
 const mongoose = require('mongoose/browser');
-const CohortSchema = require('../CohortSchema')(mongoose);
-const CampusSchema = require('../CampusSchema')(mongoose);
+const { CohortSchema, CampusSchema } = require('../../')(mongoose);
 
 describe('CohortSchema', () => {
   it('should fail validation when fields missing', () => {
@@ -39,6 +38,25 @@ describe('CohortSchema', () => {
 
     return doc.validate()
       .catch(err => expect(err.message).toBe('Generation is required for program type bc'));
+  });
+
+  it('should fail validation when topics not array of ObjectId', () => {
+    const campus = new mongoose.Document({}, CampusSchema);
+    const cohortJson = {
+      campus: campus._id,
+      program: 'bc',
+      track: 'js',
+      name: 'OMG',
+      generation: 1,
+      start: new Date(),
+      end: new Date(),
+      publicAdmission: false,
+      rubric: '2',
+      topics: ['foo'],
+    };
+    const doc = new mongoose.Document(cohortJson, CohortSchema);
+    return doc.validate()
+      .catch(err => expect(err.errors).toMatchSnapshot());
   });
 
   it('should validate good bootcamp cohort', () => {

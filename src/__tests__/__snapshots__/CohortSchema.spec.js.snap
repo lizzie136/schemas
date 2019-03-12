@@ -8,6 +8,12 @@ Object {
 }
 `;
 
+exports[`CohortSchema should fail validation when topics not array of ObjectId 1`] = `
+Object {
+  "topics": [CastError: Cast to Array failed for value "[ 'foo' ]" at path "topics"],
+}
+`;
+
 exports[`CohortSchema should fail validation when unknown program 1`] = `
 Object {
   "program": [ValidatorError: \`foo\` is not a valid enum value for path \`program\`.],

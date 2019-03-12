@@ -1,5 +1,6 @@
 const mongoose = require('mongoose/browser');
-const TopicSchema = require('../TopicSchema')(mongoose);
+const { TopicSchema } = require('../../')(mongoose);
+const babelTopicJson = require('./fixtures/topics/babel');
 
 describe('TopicSchema', () => {
   it('should fail validation when fields missing', () => {
@@ -150,5 +151,10 @@ describe('TopicSchema', () => {
       },
     }, TopicSchema);
     expect(doc.validateSync()).toBe(undefined);
+  });
+
+  it('should validate existing topic json', () => {
+    const babelTopic = new mongoose.Document(babelTopicJson, TopicSchema);
+    return babelTopic.validate();
   });
 });

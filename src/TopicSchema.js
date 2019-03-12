@@ -60,7 +60,7 @@ module.exports = (conn) => {
 
 
   const TopicSchema = new conn.Schema({
-    slug,
+    slug: { ...slug, unique: false },
     repo: { type: String, required: true },
     path: { type: String, required: true },
     version: semverVersion,
@@ -137,6 +137,8 @@ module.exports = (conn) => {
 
     return next();
   });
+
+  TopicSchema.index({ slug: 1, version: 1 }, { unique: true });
 
   return TopicSchema;
 };

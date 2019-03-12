@@ -1,5 +1,5 @@
 const mongoose = require('mongoose/browser');
-const CampusSchema = require('../CampusSchema')(mongoose);
+const { CampusSchema } = require('../../')(mongoose);
 
 describe('CampusSchema', () => {
   it('should fail validation when fields missing', () => {

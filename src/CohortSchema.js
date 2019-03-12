@@ -14,7 +14,7 @@ module.exports = (conn) => {
     track,
     name: {
       type: String,
-      // required: true,
+      // required: true, ???
     },
     // `generation` is autoincremented for a given `campus` when _admission_
     // (program: 'pre') cohorts are created. It is required for Bootcamp related
@@ -28,9 +28,15 @@ module.exports = (conn) => {
       default: '2',
       enum: ['1', '2'],
     },
-    // cohortCourses???
-    // cohortProjects???
-    // usersCount: { type: Number, required: true }, // ????
+    topics: [{
+      type: conn.Schema.Types.ObjectId,
+      ref: 'Topic',
+    }],
+    projects: [{
+      type: conn.Schema.Types.ObjectId,
+      ref: 'Project',
+    }],
+    // usersCount????
   });
 
 

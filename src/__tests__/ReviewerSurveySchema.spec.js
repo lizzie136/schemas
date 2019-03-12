@@ -1,5 +1,5 @@
 const mongoose = require('mongoose/browser');
-const ReviewerSurveySchema = require('../ReviewerSurveySchema')(mongoose);
+const { ReviewerSurveySchema } = require('../../')(mongoose);
 
 describe('ReviewerSurveySchema', () => {
   it('should fail validation when fields missing', () => {
@@ -28,13 +28,28 @@ describe('ReviewerSurveySchema', () => {
       .catch(err => expect(err.message).toMatchSnapshot());
   });
 
+  it('should fail validation when wrong type', () => {
+    const reviewerSurvey = new mongoose.Document({
+      questions: [{ slug: 'bar', type: 'other' }],
+    }, ReviewerSurveySchema);
+    return reviewerSurvey.validate()
+      .catch(err => expect(err.errors).toMatchSnapshot());
+  });
+
+  it('should fail validation when question options not a number', () => {
+    const reviewerSurvey = new mongoose.Document({
+      questions: [{ slug: 'bar', type: 'multiple-choice', options: 'hola' }],
+    }, ReviewerSurveySchema);
+    return reviewerSurvey.validate()
+      .catch(err => expect(err.errors).toMatchSnapshot());
+  });
+
   it('should validate good reviewer survey', () => {
     const doc = new mongoose.Document({
-      questions: [{
-        slug: 'foo',
-        type: 'multiple-choice',
-        options: 4,
-      }],
+      questions: [
+        { slug: 'foo', type: 'open' },
+        { slug: 'bar', type: 'multiple-choice', options: 4 },
+      ],
     }, ReviewerSurveySchema);
     return doc.validate();
   });
