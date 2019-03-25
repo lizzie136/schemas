@@ -18,7 +18,7 @@ module.exports = (conn) => {
     // createdAt??
     // status??? (active, dropout, expelled??)
     // ...
-  });
+  }, { collection: 'cohort_memberships' });
 
   return CohortMembershipSchema;
 };

@@ -12,22 +12,8 @@ Object {
   "stats.exerciseCount": [ValidatorError: Path \`stats.exerciseCount\` is required.],
   "stats.partCount": [ValidatorError: Path \`stats.partCount\` is required.],
   "stats.unitCount": [ValidatorError: Path \`stats.unitCount\` is required.],
-  "syllabus": [ValidatorError: Path \`syllabus\` is required.],
   "title": [ValidatorError: Path \`title\` is required.],
   "track": [ValidatorError: Path \`track\` is required.],
   "version": [ValidatorError: Path \`version\` is required.],
-}
-`;
-
-exports[`TopicSchema should fail validation when missing part body 1`] = `
-Object {
-  "syllabus.01-intro.parts.00-opening": "Body is required for part type read",
-  "syllabus.01-intro.parts.03-foo": "Body is required for part type read",
-}
-`;
-
-exports[`TopicSchema should fail validation when syllabus is missing 1`] = `
-Object {
-  "syllabus": [ValidatorError: Path \`syllabus\` is required.],
 }
 `;
