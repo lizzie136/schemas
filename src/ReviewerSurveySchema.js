@@ -27,7 +27,7 @@ module.exports = (conn) => {
       default: undefined,
       required: true,
     },
-  });
+  }, { collection: 'reviewer_surveys' });
 
   return ReviewerSurveySchema;
 };

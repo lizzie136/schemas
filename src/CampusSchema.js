@@ -10,7 +10,7 @@ module.exports = (conn) => {
     active: { type: Boolean, require: true, default: true },
     // Deberíamos llevar la cuenta del número de generaciones de cada campus acá?
     // generations: { type: Number, required: true, default: 0 }, // ????
-  });
+  }, { collection: 'campuses' });
 
   return CampusSchema;
 };
