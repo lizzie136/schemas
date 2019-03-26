@@ -1,24 +1,77 @@
+//
+// # UserSchema
+//
+// The `UserSchema` describes "user objects", which hold info common to all
+// users in the system (students, staff, recruiters, ...).
+//
+// User documents make reference to a Firebase user id, as authentication is
+// handled using Firebase Auth.
+//
+// Indexes:
+//
+// * `uid`: _unique_
+// * `email`: _unique_
+// * `email`, `name`, `github`, `linkedin`, `roles`: _text_
+//
+// Migration notes:
+//
+// Job placement stuff has been moved to separate collections.
+//
+// Fields managed in LMS Settings page:
+//
+// * `portfolio`, `aboutMe`, `available`, `recommendedAs`, `englishLevel`
+//   are now in`GraduateProfileSchema`
+// * `githubProjects` is now in `GraduateProfileProjectSchema`
+//
+// Fields menaged in cohort users admin page:
+//
+// * `lifeSkills` are now in `GraduateProfileLifeSkillSchema`
+// * `recommendations` are now in `GraduateProfileEndorsementSchema`
+//
+
 module.exports = (conn) => {
   const UserSchema = new conn.Schema({
+    // `uid`: the user's Firebase user id. This is mainly used to link auth user
+    // to user doc stored in MongoDB.
     uid: {
       type: String,
       required: true,
+      trim: true,
       index: true,
       unique: true,
     },
     email: {
       type: String,
       required: true,
+      trim: true,
+      lowercase: true,
       index: true,
       unique: true,
     },
-    name: { type: String },
+    name: {
+      type: String,
+      trim: true,
+    },
     // use common `locale`???
-    locale: { type: String, required: false },
-    github: { type: String },
-    linkedin: { type: String },
-    // Admin levels
-    roles: [{ // Array of roles, one can be admin AND trainingManager, for example
+    locale: {
+      type: String,
+      required: false,
+      trim: true,
+    },
+    github: {
+      type: String,
+      trim: true,
+    },
+    linkedin: {
+      type: String,
+      trim: true,
+    },
+    bio: {
+      type: String,
+      trim: true,
+    },
+    // `roles`: one can be admin AND trainingManager, for example.
+    roles: [{
       type: String,
       enum: [
         // 'student',
@@ -30,9 +83,16 @@ module.exports = (conn) => {
         // 'finances',
       ],
     }],
-    // signupCohort: { type: String },
-    // student code ???
+    // `signupCohort` is a cohort slug (old firestore cohort ids). This
+    // represents the cohort the user "applied" to when signing up.
+    // Not sure if this gets updated if a user re-applies to a future cohort.
+    // NOTE: Deprecated???
+    signupCohort: {
+      type: String,
+      trim: true,
+    },
 
+    // student code ???
 
     //
     // Alumnae stuff!! TBD
@@ -55,35 +115,21 @@ module.exports = (conn) => {
     // Payment system data
     // NOTE: WHAT IS THIS? Why is it here??
     // paymentStart: Date,
-    // Employment data
-    // NOTE: What is this????
-    // employmentProfile: {
-    //   index: true,
-    //   type: String,
-    //   enum: ['Front-end Developer', 'Prototyper', 'UX Designer'],
-    // },
     // NOTE: ????
     // currentJob: String, // Reference to UserJob collection
-
-
-    //
-    // job placement stuff!! TBD
-    //
-    // aboutMe: {},
-    // englishLevel: {},
-    // recomendedAs: {},
-    // githubProjects: {},
-    // githubUrls: {},
-    // portfolio: { type: String },
-    // available: { type: Boolean },
-    // recommendations: {},
-    // lifeSkills: {},
   });
 
 
   // Wildcard text index to match any string field in a user document
   // NOTE: do we need to index al ALL text fields??
-  UserSchema.index({ '$**': 'text' });
+  // UserSchema.index({ '$**': 'text' });
+  UserSchema.index({
+    email: 'text',
+    name: 'text',
+    github: 'text',
+    linkedin: 'text',
+    roles: 'text',
+  });
 
 
   return UserSchema;
