@@ -7,14 +7,14 @@
     "test": "jest --verbose --coverage"
   },
   "dependencies": {
-    "semver": "^5.6.0"
+    "semver": "^6.0.0"
   },
   "devDependencies": {
-    "eslint": "^5.15.1",
+    "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.16.0",
-    "jest": "^24.5.0",
-    "mongoose": "^5.4.19"
+    "jest": "^24.6.0",
+    "mongoose": "^5.4.20"
   },
   "peerDependencies": {
     "mongoose": "5.x"
