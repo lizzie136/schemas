@@ -13,6 +13,9 @@ const OrganizationSchema = require('./src/OrganizationSchema');
 const ProjectFeedbackSchema = require('./src/ProjectFeedbackSchema');
 const ProjectSchema = require('./src/ProjectSchema');
 const ReviewerSurveySchema = require('./src/ReviewerSurveySchema');
+const HiringProcessSchema = require('./src/HiringProcessSchema');
+const JobOpportunitySchema = require('./src/JobOpportunitySchema');
+const OrganizationMembershipSchema = require('./src/OrganizationMembershipSchema');
 const TopicSchema = require('./src/TopicSchema');
 const TopicUnitSchema = require('./src/TopicUnitSchema');
 const TopicUnitPartSchema = require('./src/TopicUnitPartSchema');
@@ -35,6 +38,9 @@ module.exports = conn => ({
   ProjectFeedbackSchema: ProjectFeedbackSchema(conn),
   ProjectSchema: ProjectSchema(conn),
   ReviewerSurveySchema: ReviewerSurveySchema(conn),
+  HiringProcessSchema: HiringProcessSchema(conn),
+  JobOpportunitySchema: JobOpportunitySchema(conn),
+  OrganizationMembershipSchema: OrganizationMembershipSchema(conn),
   TopicSchema: TopicSchema(conn),
   TopicUnitSchema: TopicUnitSchema(conn),
   TopicUnitPartSchema: TopicUnitPartSchema(conn),

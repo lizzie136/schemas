@@ -29,6 +29,10 @@ module.exports = (conn) => {
       type: String,
       trim: true,
     },
+    address: {
+      type: String,
+      trim: true,
+    },
   });
 
   return OrganizationSchema;

@@ -117,3 +117,15 @@ project.validate()
 ### Users
 
 * [`UserSchema`](./src/UserSchema.js)
+
+### OrganizationMembership
+
+* [`OrganizationMembershipSchema`](./src/OrganizationMembershipSchema.js)
+
+### JobOpportunity
+
+* [`JobOpportunity`](./src/JobOpportunitySchema.js)
+
+### HiringProcess
+
+* [`HiringProcessSchema`](./src/HiringProcessSchema.js)
