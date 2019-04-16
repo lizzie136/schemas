@@ -77,17 +77,43 @@ project.validate()
 
 ## Schemas
 
+### Campuses
+
 * [`CampusSchema`](./src/CampusSchema.js)
+
+### Cohorts
+
 * [`CohortSchema`](./src/CohortSchema.js)
 * [`CohortMembershipSchema`](./src/CohortMembershipSchema.js)
+* [`CohortProjectSchema`](./src/CohortProjectSchema.js)
+* [`CohortTopicSchema`](./src/CohortTopicSchema.js)
+* [`CohortTopicSettingsSchema`](./src/CohortTopicSettingsSchema.js)
+* [`CohortPlatziCourseSchema`](./src/CohortPlatziCourseSchema.js)
+
+### Graduates
+
 * [`GraduateProfileSchema`](./src/GraduateProfileSchema.js)
 * [`GraduateProfileEndorsementSchema`](./src/GraduateProfileEndorsementSchema.js)
 * [`GraduateProfileProjectSchema`](./src/GraduateProfileProjectSchema.js)
 * [`GraduateProfileLifeSkillSchema`](./src/GraduateProfileLifeSkillSchema.js)
+
+### Organizations
+
 * [`OrganizationSchema`](./src/OrganizationSchema.js)
+
+### Projects
+
 * [`ProjectSchema`](./src/ProjectSchema.js)
 * [`ProjectFeedbackSchema`](./src/ProjectFeedbackSchema.js)
 * [`ReviewerSurveySchema`](./src/ReviewerSurveySchema.js)
+
+### Topics
+
 * [`TopicSchema`](./src/TopicSchema.js)
+* [`TopicUnitSchema`](./src/TopicUnitSchema.js)
+* [`TopicUnitPartSchema`](./src/TopicUnitPartSchema.js)
 * `TopicProgressSchema` (TBD)
+
+### Users
+
 * [`UserSchema`](./src/UserSchema.js)
