@@ -2,6 +2,7 @@
   "name": "schemas",
   "version": "1.0.0-alpha.7",
   "license": "MIT",
+  "repository": "Laboratoria/schemas",
   "scripts": {
     "pretest": "eslint .",
     "test": "jest --verbose --coverage"
