@@ -6,7 +6,7 @@ exports.slug = {
   lowercase: true,
   trim: true,
   minlength: 3,
-  maxlength: 50,
+  maxlength: 100,
   required: true,
   index: true,
   unique: true,
