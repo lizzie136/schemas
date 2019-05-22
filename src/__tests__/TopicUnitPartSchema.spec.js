@@ -1,5 +1,6 @@
 const mongoose = require('mongoose/browser');
-const { TopicUnitSchema, TopicUnitPartSchema } = require('../../')(mongoose);
+const { JSDOM } = require('jsdom');
+const { TopicUnitSchema, TopicUnitPartSchema } = require('../../')(mongoose, (new JSDOM()).window.document);
 const babelTopicJson = require('./fixtures/topics/babel');
 
 describe('TopicUnitPartSchema', () => {
@@ -52,7 +53,24 @@ describe('TopicUnitPartSchema', () => {
     return doc.validate();
   });
 
+  it('should pass validation when type practice and empty body', () => {
+    const unit = new mongoose.Document({}, TopicUnitSchema);
+    const doc = new mongoose.Document({
+      unit: unit._id,
+      slug: '02-exercises',
+      duration: 10,
+      durationString: '10min',
+      format: 'self-paced',
+      type: 'practice',
+      title: 'Exercises',
+      body: '',
+    }, TopicUnitPartSchema);
+
+    return doc.validate();
+  });
+
   it('should pass validation when type read and has body', () => {
+    const body = 'Blah <h1>bla<span>h.*</span>-</h1>+_ blah...';
     const unit = new mongoose.Document({}, TopicUnitSchema);
     const doc = new mongoose.Document({
       unit: unit._id,
@@ -62,9 +80,11 @@ describe('TopicUnitPartSchema', () => {
       format: 'self-paced',
       type: 'read',
       title: 'Opening',
-      body: 'Blah blah blah...',
+      body,
     }, TopicUnitPartSchema);
     expect(doc.validateSync()).toBe(undefined);
+    expect(doc.body).toBe(body);
+    expect(doc.searchableBody).toBe('Blah blah.*-+_ blah...');
   });
 
   it('should validate existing topic json', () => {

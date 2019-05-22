@@ -1,7 +1,7 @@
 const { slug } = require('./common');
 
 
-module.exports = (conn) => {
+module.exports = (conn, document) => {
   const TopicUnitPartSchema = new conn.Schema({
     unit: {
       type: conn.Schema.Types.ObjectId,
@@ -31,7 +31,19 @@ module.exports = (conn) => {
     // `body` is required when `type` is not practice or quiz
     body: {
       type: String,
+      set(body) {
+        if (!body) {
+          return body;
+        }
+        const domWrapper = document.createElement('div');
+        domWrapper.innerHTML = body;
+        this.searchableBody = domWrapper.textContent;
+        return body;
+      },
       // required: true,
+    },
+    searchableBody: {
+      type: String,
     },
     durationString: { type: String, required: true },
   }, { collection: 'topic_unit_parts' });

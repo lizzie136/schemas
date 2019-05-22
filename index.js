@@ -22,7 +22,7 @@ const TopicUnitPartSchema = require('./src/TopicUnitPartSchema');
 const UserSchema = require('./src/UserSchema');
 
 
-module.exports = conn => ({
+module.exports = (conn, document) => ({
   CampusSchema: CampusSchema(conn),
   CohortMembershipSchema: CohortMembershipSchema(conn),
   CohortPlatziCourseSchema: CohortPlatziCourseSchema(conn),
@@ -43,6 +43,7 @@ module.exports = conn => ({
   OrganizationMembershipSchema: OrganizationMembershipSchema(conn),
   TopicSchema: TopicSchema(conn),
   TopicUnitSchema: TopicUnitSchema(conn),
-  TopicUnitPartSchema: TopicUnitPartSchema(conn),
+  // eslint-disable-next-line no-undef
+  TopicUnitPartSchema: TopicUnitPartSchema(conn, document || (typeof window !== 'undefined' ? window : {}).document),
   UserSchema: UserSchema(conn),
 });
